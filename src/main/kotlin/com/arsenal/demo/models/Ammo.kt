@@ -1,15 +1,11 @@
 package com.arsenal.demo.models
 
+import jakarta.persistence.*
 
-class Ammo (name: String, amount: Int){
-
-    val name: String
-
-    val amount: Int
-
-    init{
-        this.name=name
-        this.amount=amount
-    }
+//@Entity
+@Table(name="ammo")
+data class Ammo (@Column(nullable = false) var name: String,
+            @Column(nullable = false) var amount: Int,
+            @Id @GeneratedValue var id: Long? = null){
 
 }
