@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
-@RequestMapping("/blasters")
+@RequestMapping("/blaster")
 class BlasterController(private val blasterService: BlasterService) {
 
     @PostMapping("/new")
