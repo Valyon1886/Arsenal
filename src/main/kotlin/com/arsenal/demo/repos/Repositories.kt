@@ -15,3 +15,8 @@ interface UserRepository : JpaRepository<User, Long>{
 interface BlasterRepository : JpaRepository<Blaster, Long>{
 
 }
+
+@Repository
+interface AmmoRepository : JpaRepository<Ammo, Long>{
+
+}

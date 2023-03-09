@@ -4,5 +4,5 @@ import jakarta.persistence.Table
 
 @Table(name="role")
 enum class Role {
-    ZOMBIE_STRIKE, ELITE, NSTRIKE, MODULUS, RIVAL, DOOMLANDS // TODO: дописать роли
+    USER, ADMIN, UNAUTHORIZED // TODO: дописать роли
 }
