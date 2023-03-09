@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/user")
 class UserController (private val userService: UserService) {
 
-    @PostMapping("/newUser")
+    @PostMapping("/new")
     @ResponseBody
     fun addUser(@RequestBody user: User): User = userService.addUser(user)  // TODO Сделать через json
 
@@ -26,7 +26,7 @@ class UserController (private val userService: UserService) {
     @ResponseBody
     fun deleteUser(@PathVariable id: Long): String = userService.deleteUser(id)
 
-    @PutMapping("/del/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     fun updateUser(@PathVariable id: Long, @RequestBody user: User): User = userService.updateUser(id, user)
 

@@ -3,7 +3,9 @@ package com.arsenal.demo.services
 import com.arsenal.demo.models.Ammo
 import com.arsenal.demo.repos.AmmoRepository
 import jakarta.persistence.EntityNotFoundException
+import org.springframework.stereotype.Service
 
+@Service
 class AmmoService (private val ammoRepository: AmmoRepository){
     fun createAmmo(ammo: Ammo): Ammo = ammoRepository.save(ammo)
 

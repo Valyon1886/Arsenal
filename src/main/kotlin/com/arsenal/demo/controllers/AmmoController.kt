@@ -1,39 +1,39 @@
 package com.arsenal.demo.controllers
 
-import com.arsenal.demo.models.Blaster
-import com.arsenal.demo.repos.AmmoRepository
+import com.arsenal.demo.models.Ammo
+import com.arsenal.demo.services.AmmoService
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/ammo")
-class AmmoController(private val ammoRepository: AmmoRepository) {
+class AmmoController(private val ammoService: AmmoService) {
 
     @PostMapping("/new")
     @ResponseBody
-    fun createBlaster(@RequestBody blaster: Blaster): Blaster {
-        return createBlaster(blaster)
+    fun createAmmo(@RequestBody ammo: Ammo): Ammo {
+        return ammoService.createAmmo(ammo)
     }
 
     @GetMapping("/find/{id}")
     @ResponseBody
-    fun findBlaster(@PathVariable id: Long): Blaster {
-        return findBlaster(id)
+    fun findAmmo(@PathVariable id: Long): Ammo {
+        return ammoService.findAmmo(id)
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/all")
     @ResponseBody
-    fun getBlasters(): Blaster {
-        return getBlasters()
+    fun getAmmo(): List<Ammo> {
+        return ammoService.getAmmo()
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    fun updateBlaster(@PathVariable id: Long, @RequestBody blaster: Blaster): Blaster {
-        return updateBlaster(id, blaster)
+    fun updateAmmo(@PathVariable id: Long, @RequestBody ammo: Ammo): Ammo {
+        return ammoService.updateAmmo(id, ammo)
     }
 
     @DeleteMapping("/remove/{id}")
     @ResponseBody
-    fun deleteBlaster(@PathVariable id: Long): String=deleteBlaster(id)
+    fun deleteAmmo(@PathVariable id: Long): String=ammoService.deleteAmmo(id)
 }
