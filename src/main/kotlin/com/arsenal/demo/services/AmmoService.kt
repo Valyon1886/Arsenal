@@ -10,7 +10,7 @@ class AmmoService (private val ammoRepository: AmmoRepository){
     fun createAmmo(ammo: Ammo): Ammo = ammoRepository.save(ammo)
 
     fun findAmmo(id: Long): Ammo {
-        return ammoRepository.findById(id).orElseThrow { EntityNotFoundException("Ammo not found with id $id") }
+        return ammoRepository.findById(id).orElseThrow { null }  // EntityNotFoundException("Ammo not found with id $id")
     }
 
     fun deleteAmmo(id: Long): String = ammoRepository.deleteById(id).toString()
@@ -19,7 +19,6 @@ class AmmoService (private val ammoRepository: AmmoRepository){
     fun updateAmmo(id: Long, ammo: Ammo): Ammo {
         return ammoRepository.findById(id).map {
             it.name = ammo.name
-            it.amount = ammo.amount
             ammoRepository.save(it)
         }.orElseThrow { EntityNotFoundException("Can't update Ammo") }
     }

@@ -22,7 +22,7 @@ class BlasterController(private val blasterService: BlasterService) {
         return blasterService.findBlaster(id)
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/all")
     @ResponseBody
     fun getBlasters(): List<Blaster> {
         return blasterService.getBlasters()

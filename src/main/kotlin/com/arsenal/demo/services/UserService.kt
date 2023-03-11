@@ -6,10 +6,12 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class UserService (private val userRepository: UserRepository){
+class UserService (private val userRepository: UserRepository, private val blasterService: BlasterService){
     fun addUser(user: User): User {
-        userRepository.save(user)
-        return user  // TODO Сделать через json
+        for (i in user.arsenal!!) {
+            blasterService.createBlaster(i)
+        }
+        return userRepository.save(user)
     }
 
     fun getUsers(): List<User> = userRepository.findAll().toList()
@@ -23,6 +25,13 @@ class UserService (private val userRepository: UserRepository){
         var updateUser = userRepository.findByIdOrNull(id)
         if(updateUser!=null) {
             updateUser.userName = user.userName
+            for (i in user.arsenal!!) {
+                if (i.id?.let { it1 -> blasterService.findBlaster(it1) } !=null) {
+                    blasterService.updateBlaster(i.id!!, i)
+                } else{
+                    blasterService.createBlaster(i)
+                }
+            }
             updateUser.arsenal = user.arsenal
             updateUser.image = user.image
             updateUser.role = user.role

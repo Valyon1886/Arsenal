@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 @Service
-class BlasterService (private val blasterRepository: BlasterRepository){
-    fun createBlaster(blaster: Blaster): Blaster = blasterRepository.save(blaster)
+class BlasterService (private val blasterRepository: BlasterRepository, private val ammoService: AmmoService){
+    fun createBlaster(blaster: Blaster): Blaster {
+        for (i in blaster.ammo.indices) {
+            ammoService.createAmmo(blaster.ammo[i])
+        }
+        return blasterRepository.save(blaster)
+    }
 
     fun findBlaster(id: Long): Blaster {
         return blasterRepository.findById(id).orElseThrow { EntityNotFoundException("Blaster not found with id $id") }
@@ -25,7 +30,15 @@ class BlasterService (private val blasterRepository: BlasterRepository){
     fun updateBlaster(id: Long, blaster: Blaster): Blaster {
         return blasterRepository.findById(id).map {
             it.name = blaster.name
+            for (i in blaster.ammo) {
+                if (i.id?.let { it1 -> ammoService.findAmmo(it1) } !=null) {
+                    ammoService.updateAmmo(i.id!!, i)
+                } else{
+                    ammoService.createAmmo(i)
+                }
+            }
             it.ammo = blaster.ammo
+            it.amount = blaster.amount
             it.image = blaster.image
             it.series = blaster.series
             it.category = blaster.category
