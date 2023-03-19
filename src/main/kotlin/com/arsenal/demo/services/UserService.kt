@@ -11,6 +11,7 @@ class UserService (private val userRepository: UserRepository, private val blast
         for (i in user.arsenal!!) {
             blasterService.createBlaster(i)
         }
+        //TODO GAMES ANal arsenal
         return userRepository.save(user)
     }
 

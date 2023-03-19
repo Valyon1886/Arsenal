@@ -1,6 +1,7 @@
 package com.arsenal.demo.models
 
 import jakarta.persistence.*
+import org.hibernate.internal.util.collections.CollectionHelper.listOf
 
 @Entity
 @Table(name="blaster")
