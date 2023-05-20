@@ -1,15 +1,19 @@
 package com.arsenal.demo.models
 
 import jakarta.persistence.*
+import org.hibernate.internal.util.collections.CollectionHelper
 
 @Entity
-@Table(name="game")
+@Table(name="game")  //  Таблица игровых сеансов
 data class Game  (
-    @Column(nullable = false) var name: String,
-    @Column(nullable = true)  var amount: Int,
-    @Column(nullable = true) var image: String,
-    @Column(nullable = false) var mode: Mode,
-    @Id @GeneratedValue var id: Long? = null){
-
-    constructor() : this("",  1, "", Mode.CLASSIC_THIRD)
+    @Column(nullable = false) var name: String,  // Название игрового сеанса
+    @Column(nullable = true)  var amount: Int,  // Минимальное количество участников
+    @Column(nullable = true) var image: String,  // Иконка игрового сеанса
+    @Column(nullable = false) var mode: Mode,  // Игровой режим (правила игрового сеанса)
+    @Column(nullable = true) var arsenals: MutableList<MutableList<Blaster>>?,  // Список
+    @Column(nullable = false) var author: User,
+    @Id @GeneratedValue var id: Long? = null
+)
+{
+    constructor() : this("",  1, "", Mode.CLASSIC_THIRD, CollectionHelper.listOf(), User())
 }

@@ -12,7 +12,7 @@ class UserController (private val userService: UserService) {
 
     @PostMapping("/new")
     @ResponseBody
-    fun addUser(@RequestBody user: User): User = userService.addUser(user)  // TODO Сделать через json
+    fun addUser(@RequestBody user: User): User = userService.addUser(user)
 
     @GetMapping("/test")
     @ResponseBody
@@ -34,3 +34,4 @@ class UserController (private val userService: UserService) {
     @ResponseBody
     fun findUser(@PathVariable id: Long): User? = userService.findUser(id)
 }
+

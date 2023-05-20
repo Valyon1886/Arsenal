@@ -1,6 +1,6 @@
 package com.arsenal.demo.models
 
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Table(name="role")
 enum class Role {

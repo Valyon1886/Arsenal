@@ -6,17 +6,18 @@ import lombok.Setter
 import org.hibernate.internal.util.collections.CollectionHelper.listOf
 
 @Entity
-@Table(name="myusers")
+@Table(name="myusers")  // Таблица пользователей
 data class User(
-    @Column(nullable = false) var userName: String,
-    @Column(nullable = false) val password: String,
-    @Column(nullable = true) var image: String?,
-    @Column(nullable = true) var role: Role,
-    @OneToMany @Column(nullable = true) var arsenal: List<Blaster>?,
-    @OneToMany @Column(nullable = true) var games: List<Game>?,
+    @Column(nullable = false) var userName: String,  // Никнейм пользователя
+    @Column(nullable = false) val password: String,  // Пароль пользователя (хранится в шифрованном виде)
+    @Column(nullable = true) var image: String?,  // Аватар пользователя
+    @Column(nullable = true) var role: Role,  // Роль пользователя (user или admin)
+    @OneToMany @Column(nullable = true) var arsenal: MutableList<Blaster>?,  // Список оборудования, добавленных пользователем в арсенал
+    @OneToMany @Column(nullable = true) var games: MutableList<Game>?,  // Список игровых сессий, в которых учавствовал пользователь
     @Id @GeneratedValue var id: Long? = null
 )
 {
 
     constructor() : this("", "", "", Role.UNAUTHORIZED, listOf(), listOf())
 }
+
