@@ -18,7 +18,7 @@ class AmmoService (private val ammoRepository: AmmoRepository){
 
     fun updateAmmo(id: Long, ammo: Ammo): Ammo {
         return ammoRepository.findById(id).map {
-            it.name = ammo.name
+            it.ammoName = ammo.ammoName
             ammoRepository.save(it)
         }.orElseThrow { EntityNotFoundException("Can't update Ammo") }
     }

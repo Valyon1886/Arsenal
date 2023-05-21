@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody
 @Service
 class BlasterService (private val blasterRepository: BlasterRepository, private val ammoService: AmmoService){
     fun createBlaster(blaster: Blaster): Blaster {
-        for (i in blaster.ammo.indices) {
-            ammoService.createAmmo(blaster.ammo[i])
+        for (i in blaster.ammo?.indices!!) {
+            ammoService.createAmmo(blaster.ammo!![i])
         }
         return blasterRepository.save(blaster)
     }
@@ -29,8 +29,8 @@ class BlasterService (private val blasterRepository: BlasterRepository, private 
 
     fun updateBlaster(id: Long, blaster: Blaster): Blaster {
         return blasterRepository.findById(id).map {
-            it.name = blaster.name
-            for (i in blaster.ammo) {
+            it.blasterName = blaster.blasterName
+            for (i in blaster.ammo!!) {
                 if (i.id?.let { it1 -> ammoService.findAmmo(it1) } !=null) {
                     ammoService.updateAmmo(i.id!!, i)
                 } else{

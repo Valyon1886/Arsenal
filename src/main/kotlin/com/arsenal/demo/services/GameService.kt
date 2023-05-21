@@ -8,15 +8,21 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class GameService (private val gameRepository: GameRepository, private val userRepository: UserRepository, private val blasterService: BlasterService){
+class GameService (
+    private val gameRepository: GameRepository,
+    private val userRepository: UserRepository,
+    private val blasterService: BlasterService,
+    private val userService: UserService
+){
     fun addGame(game: Game, userId: Long): Game {
 
         var currentUser:User? = userRepository.findByIdOrNull(userId)
+        var newGame:Game = gameRepository.save(game)
         if (currentUser != null) {
             currentUser.games?.add(game)
             userRepository.save(currentUser)
         }
-        return gameRepository.save(game)
+        return newGame
     }
 
     fun getGames(): List<Game> = gameRepository.findAll().toList()
@@ -29,14 +35,12 @@ class GameService (private val gameRepository: GameRepository, private val userR
     fun updateGame(id: Long, game:Game): Game {
         var updateGame = gameRepository.findByIdOrNull(id)
         if(updateGame!=null) {
-            for (i in game.arsenals!!) {
-                for (j in i) {
-                    if (j.id?.let { it -> blasterService.findBlaster(it) } !=null) {
-                        blasterService.updateBlaster(j.id!!, j)
+            for (i in game.users!!) {
+                    if (i.id?.let { it -> userService.findUser(it) } !=null) {
+                        userService.updateUser(i.id!!, i)
                     } else{
-                        blasterService.createBlaster(j)
+                        userService.addUser(i)
                     }
-                }
             }
             updateGame.name = game.name
             updateGame.image = game.image

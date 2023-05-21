@@ -18,6 +18,6 @@ data class User(
 )
 {
 
-    constructor() : this("", "", "", Role.UNAUTHORIZED, listOf(), listOf())
+    constructor() : this("", "", "", Role.UNAUTHORIZED, mutableListOf(), mutableListOf())
 }
 
