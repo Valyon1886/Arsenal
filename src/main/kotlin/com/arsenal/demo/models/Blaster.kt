@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Table(name="blaster")  //  Таблица предметов (бластеров)
 data class Blaster(
     @Column(nullable = false) var blasterName: String,  // Название бластера
-    @OneToMany
+    @ManyToMany
     @Column(nullable = false)  var ammo: MutableList<Ammo>?, // Список используемых типов боеприпасов                       // map колличество патронов в сумме (в описании говорится сколько конкретно чего)
     @Column(nullable = false)  var amount: Int,  //  Количество боеприпасов
     @Column(nullable = true) var image: String,  //  Изображение бластера (отображается в каталоге)

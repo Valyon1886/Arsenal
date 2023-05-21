@@ -10,9 +10,8 @@ data class Game  (
     @Column(nullable = true)  var amount: Int,  // Минимальное количество участников
     @Column(nullable = true) var image: String,  // Иконка игрового сеанса
     @Column(nullable = false) var mode: Mode,  // Игровой режим (правила игрового сеанса)
-    @OneToMany
 //    @Column(nullable = true) var arsenals: MutableList<MutableList<Blaster>>?,  // Список
-    @Column(nullable = true) var users: MutableList<User>?,  // Список
+    @Column(nullable = true) var users: MutableList<Long>?,  // Список
     @Id @GeneratedValue var id: Long? = null
 )
 {

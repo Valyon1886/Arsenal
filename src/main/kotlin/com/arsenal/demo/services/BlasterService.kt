@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody
 @Service
 class BlasterService (private val blasterRepository: BlasterRepository, private val ammoService: AmmoService){
     fun createBlaster(blaster: Blaster): Blaster {
-        for (i in blaster.ammo?.indices!!) {
-            ammoService.createAmmo(blaster.ammo!![i])
-        }
+//        for (i in blaster.ammo?.indices!!) {
+//            ammoService.createAmmo(blaster.ammo!![i])
+//        }
         return blasterRepository.save(blaster)
     }
 

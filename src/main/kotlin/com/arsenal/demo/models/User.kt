@@ -8,6 +8,7 @@ import org.hibernate.internal.util.collections.CollectionHelper.listOf
 @Entity
 @Table(name="myusers")  // Таблица пользователей
 data class User(
+    @Column var idToken: String?,
     @Column(nullable = false) var userName: String,  // Никнейм пользователя
     @Column(nullable = false) val password: String,  // Пароль пользователя (хранится в шифрованном виде)
     @Column(nullable = true) var image: String?,  // Аватар пользователя
@@ -18,6 +19,6 @@ data class User(
 )
 {
 
-    constructor() : this("", "", "", Role.UNAUTHORIZED, mutableListOf(), mutableListOf())
+    constructor() : this("","", "", "", Role.UNAUTHORIZED, mutableListOf(), mutableListOf())
 }
 

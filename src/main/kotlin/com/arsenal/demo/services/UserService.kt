@@ -7,6 +7,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService (private val userRepository: UserRepository, private val blasterService: BlasterService){
+
+    fun checkIdTokenUser(idToken: String): Boolean {
+        return userRepository.findByIdToken(idToken) != null
+    }
+
+    fun findUserByIdToken(idToken: String): User? {
+        return userRepository.findByIdToken(idToken)
+    }
+
     fun addUser(user: User): User {
         for (i in user.arsenal!!) {
             blasterService.createBlaster(i)

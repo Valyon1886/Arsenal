@@ -14,6 +14,10 @@ class GameController (private val gameService: GameService) {
     @ResponseBody
     fun addGame(@RequestBody game: Game, @PathVariable id: Long): Game = gameService.addGame(game, id)
 
+    @PostMapping("/aad/user/{id}")
+    @ResponseBody
+    fun addUserToGame(@RequestBody game: Game, @PathVariable id: Long): Game = gameService.addUserToGame(game, id)
+
     @GetMapping("/test")
     @ResponseBody
     fun testos(): String = "sdfghjkl"

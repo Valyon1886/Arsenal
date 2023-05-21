@@ -25,6 +25,14 @@ class GameService (
         return newGame
     }
 
+    fun addUserToGame(game: Game, userId: Long): Game {
+
+        var newGame:Game = game
+        newGame.users?.add(userId)
+
+        return gameRepository.save(newGame)
+    }
+
     fun getGames(): List<Game> = gameRepository.findAll().toList()
 
     fun deleteGame(id: Long): String {
@@ -35,13 +43,7 @@ class GameService (
     fun updateGame(id: Long, game:Game): Game {
         var updateGame = gameRepository.findByIdOrNull(id)
         if(updateGame!=null) {
-            for (i in game.users!!) {
-                    if (i.id?.let { it -> userService.findUser(it) } !=null) {
-                        userService.updateUser(i.id!!, i)
-                    } else{
-                        userService.addUser(i)
-                    }
-            }
+            updateGame.users = game.users
             updateGame.name = game.name
             updateGame.image = game.image
             updateGame.mode = game.mode

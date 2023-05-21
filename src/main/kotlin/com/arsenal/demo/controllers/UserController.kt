@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/user")
 class UserController (private val userService: UserService) {
 
+    @GetMapping("/get/token/{idToken}")
+    @ResponseBody
+    fun checkIdTokenUser(@PathVariable idToken: String) = userService.checkIdTokenUser(idToken)
+
+    @GetMapping("/get/idToken/{idToken}")
+    @ResponseBody
+    fun findUserByIdToken(@PathVariable idToken: String) = userService.findUserByIdToken(idToken)
+
     @PostMapping("/new")
     @ResponseBody
     fun addUser(@RequestBody user: User): User = userService.addUser(user)
