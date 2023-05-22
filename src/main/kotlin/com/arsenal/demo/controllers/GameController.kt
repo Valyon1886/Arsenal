@@ -14,13 +14,21 @@ class GameController (private val gameService: GameService) {
     @ResponseBody
     fun addGame(@RequestBody game: Game, @PathVariable id: Long): Game = gameService.addGame(game, id)
 
-    @PostMapping("/aad/user/{id}")
+    @PutMapping("/add/user/{id}")
     @ResponseBody
     fun addUserToGame(@RequestBody game: Game, @PathVariable id: Long): Game = gameService.addUserToGame(game, id)
+
+    @GetMapping("/users/{id}")
+    @ResponseBody
+    fun getUserNames(@PathVariable id: Long): MutableList<String> = gameService.getUserNames(id)
 
     @GetMapping("/test")
     @ResponseBody
     fun testos(): String = "sdfghjkl"
+
+    @PutMapping("/active")
+    @ResponseBody
+    fun endActive(@RequestBody game: Game): Game = gameService.endActive(game)
 
     @GetMapping("/all")
     @ResponseBody

@@ -18,9 +18,17 @@ class UserController (private val userService: UserService) {
     @ResponseBody
     fun findUserByIdToken(@PathVariable idToken: String) = userService.findUserByIdToken(idToken)
 
+    @PutMapping("/updateNotFull/{id}")
+    @ResponseBody
+    fun updateUserNotFull(@PathVariable id: Long, @RequestBody userUpdate: User) = userService.updateUserNotFull(id, userUpdate)
+
     @PostMapping("/new")
     @ResponseBody
     fun addUser(@RequestBody user: User): User = userService.addUser(user)
+
+    @PostMapping("/{userId}/blaster/{blasterId}")
+    @ResponseBody
+    fun addBlasterToUser(@PathVariable userId: Long, @PathVariable blasterId: Long) = userService.addBlasterToUser(userId, blasterId)
 
     @GetMapping("/test")
     @ResponseBody

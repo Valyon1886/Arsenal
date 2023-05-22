@@ -26,12 +26,45 @@ class GameService (
     }
 
     fun addUserToGame(game: Game, userId: Long): Game {
+        var user: User? = userRepository.findByIdOrNull(userId)
 
         var newGame:Game = game
         newGame.users?.add(userId)
+        game.users=newGame.users
+
+        gameRepository.save(game)
+
+        if (user != null) {
+            user.games?.add(newGame)
+            userRepository.save(user)
+        }
+
+        return game
+    }
+
+//    fun addAllowedSeriesToGame(game: Game, series: MutableList<String?>): Game {
+//        var newGame:Game = game
+//        newGame.allowedSeries=series
+//        gameRepository.save(game)
+//
+//        return game
+//    }
+
+    fun getUserNames(gameId: Long): MutableList<String>{
+        var res:MutableList<String> = mutableListOf()
+        val game: Game = gameRepository.findByIdOrNull(gameId)!!
+        for (i in game.users!!) userRepository.findByIdOrNull(i)?.userName?.let { res.add(it) }
+        return  res
+    }
+
+    fun endActive(game: Game): Game {
+
+        var newGame:Game = game
+        newGame.isActive=false
 
         return gameRepository.save(newGame)
     }
+
 
     fun getGames(): List<Game> = gameRepository.findAll().toList()
 
